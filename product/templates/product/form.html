@@ -1,0 +1,13 @@
+{% extends 'product/base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <form method="post" class="form form-group">
+        {% csrf_token %}
+        {% bootstrap_form form layout='group' %}
+        {% if update_view %}
+            {% bootstrap_button 'Update' button_type='submit' %}
+        {% else %}
+            {% bootstrap_button 'Create' button_type='submit' %}
+        {% endif %}
+    </form>
+{% endblock content %}

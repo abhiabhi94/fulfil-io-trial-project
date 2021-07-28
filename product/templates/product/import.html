@@ -1,0 +1,14 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <form id="productImportForm" enctype="multipart/form-data" method="post" class="form" action="{% url 'product:import' %}">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Import Product</legend>
+            {{ form|crispy }}
+        </fieldset>
+        {% bootstrap_button button_type="submit" content="Upload" %}
+    </form>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'product/base.html' %}
+{% load render_table from django_tables2 %}
+{% load django_bootstrap5 %}
+{% block content %}
+    {% include 'product/import_progress.html' with task_id=task_id %}
+    {% include 'product/filter_form.html' with filter=filter %}
+    {% render_table table %}
+    <div class="form-group d-flex">
+        {% url 'product:create' as create_link %}
+        {% url 'product:delete-all' as delete_link %}
+        {% url 'product:import' as import_link %}
+        {% url 'product:create-hook' as create_hook_link %}
+        {% bootstrap_button 'Import Products' button_type='link' button_class='btn-info' size='md' extra_classes='ml-1' href=import_link %}
+        {% bootstrap_button 'Create Webhook' button_type='link' button_class='btn-primary' size='md' extra_classes='ml-2' href=create_hook_link %}
+        {% bootstrap_button 'Create New Product' button_type='link' button_class='btn-primary' size='md' extra_classes='m-auto' href=create_link %}
+        {% bootstrap_button 'Delete All Products' button_type='link' button_class='btn-danger' size='md' extra_classes='mr-1' href=delete_link %}
+    </div>
+{% endblock content %}

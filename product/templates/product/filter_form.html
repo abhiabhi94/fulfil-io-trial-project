@@ -1,0 +1,7 @@
+{% load django_bootstrap5 %}
+{% if filter %}
+    <form action="" method="get" class="form form-group">
+        {% bootstrap_form filter.form layout='group' %}
+        {% bootstrap_button 'Filter' %}
+    </form>
+{% endif %}

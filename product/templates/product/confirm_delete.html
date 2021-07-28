@@ -1,0 +1,18 @@
+{% extends "product/base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+
+    <div class="content-section">
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Product</legend>
+                <h2>Are you sure your want to delete the product "{{ product.name }}"</h2>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-danger" type="submit" title="Delete" >Delete</button>
+                <a class="btn btn-secondary" href="{% url 'product:detail' product.pk %}" title="Cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

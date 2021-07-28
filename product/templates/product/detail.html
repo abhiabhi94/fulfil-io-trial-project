@@ -1,0 +1,26 @@
+{% extends 'product/base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div>
+        <div>
+            <h4>Name</h4>
+            <div>{{ product.name }}</div>
+        </div>
+        <hr>
+        <div>
+            <h4>SKU</h4>
+            <div>{{ product.sku }}</div>
+        </div>
+        <hr>
+        <div>
+            <h4>Description</h4>
+            <div>{{ product.description }}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        {% url 'product:update' product.pk as update_link %}
+        {% url 'product:delete' product.pk as delete_link %}
+        {% bootstrap_button 'Update' button_type='link' button_class='btn-primary' size='md' href=update_link %}
+        {% bootstrap_button 'Delete' button_type='link' button_class='btn-danger' size='md' href=delete_link %}
+    </div>
+{% endblock content %}
