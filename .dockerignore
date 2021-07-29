@@ -1,0 +1,9 @@
+*Dockerfile
+*.coverage
+*.py[cod]
+.dockerignore
+*.pre-commit-config.yaml
+*venv*
+*.git*
+setup.cfg
+README.md

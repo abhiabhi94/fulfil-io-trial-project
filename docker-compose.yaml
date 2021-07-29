@@ -1,0 +1,60 @@
+version: '3.6'
+
+services:
+
+  db:
+    container_name: db
+    image: postgres:13.3-alpine
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
+    container_name: web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    command: sh -c "wait-for db:5432 && python manage.py collectstatic --no-input && python manage.py migrate && gunicorn config.wsgi -b 0.0.0.0:8000"
+    ports:
+      - 8000:8000
+    hostname: app
+    restart: on-failure
+    depends_on:
+      - db
+      - rabbitmq
+    volumes:
+      - .:/usr/src/app
+
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    image: rabbitmq
+    restart: on-failure
+    ports:
+      - 5672:5672
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "wait-for rabbitmq:5672 && wait-for app:8000 -- celery -A config worker -l info"
+    container_name: celery_worker
+    depends_on:
+      - app
+      - db
+      - rabbitmq
+    hostname: celery_worker
+    restart: on-failure
+    env_file:
+      - ./.env
+    volumes:
+      - .:/usr/src/app
+
+volumes:
+  postgres-data:
