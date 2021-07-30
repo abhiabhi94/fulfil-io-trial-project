@@ -49,9 +49,12 @@
     pip install pre-commit
     pre-commit run
     ```
+    #### Testing
+
+    - Run `make test` to run all the tests.
+    - Run `make coverage` to see the coverage results(currently at **99%**).
 
 ### Deployment
 
 - Run `docker-compose -f docker-compose.yaml -f docker-compose.production.yaml build` to build the image.
 - Run `docker-compose -f docker-compose.yaml -f docker-compose.production.yaml up -d` to run the image.
-
