@@ -101,4 +101,4 @@ def delete_all_products_view(request, *args, **kwargs):
         messages.success(request, _('All products have been deleted successfully.'))
         return redirect('product:import')
 
-    return HttpResponseBadRequest
+    return HttpResponseBadRequest()
